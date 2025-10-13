@@ -1,0 +1,74 @@
+* {
+    font-family: 'JetbrainsMono Nerd Font';
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.module {
+    min-height: 40px;
+}
+
+window#waybar {
+    background-color: #2e3440;
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+button {
+    border: none;
+    border-radius: 0;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    color: #ffffff;
+}
+
+#workspaces button:hover {
+    background: #434c5e;
+}
+
+#workspaces button.focused {
+    background-color: #4c566a;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+
+#mode {
+    background-color: #64727D;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+    padding: 0 10px;
+    color: #ffffff;
+}
+
+#window,
+#workspaces {
+    margin: 0 4px;
+}
+
+#pulseaudio,#memory  {
+    color: #a3be8c;
+}
+
