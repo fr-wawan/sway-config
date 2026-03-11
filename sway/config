@@ -24,13 +24,14 @@ set $term kitty
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
 # TODO: add window with the next release of rofi-wayland
-set $menu wofi --show=drun
+set $menu rofi -show drun
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg $(find ~/Pictures/wallpapers -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.bmp' -o -iname '*.webp' \) | shuf -n 1) fill
+output * bg /home/exwadia/Pictures/wallpaper2.jpg fill
+#output * bg $(find ~/Pictures/wallpapers -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.bmp' -o -iname '*.webp' \) | shuf -n 1) fill
 #
 # Example configuration:
 #
@@ -73,6 +74,7 @@ input "type:touchpad" {
     dwt enabled
     tap enabled
     middle_emulation enabled
+    natural_scroll enabled
 }
 
 ### Key bindings
@@ -98,7 +100,9 @@ bindsym XF86MonBrightnessUp exec \
 
 
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+s exec slurp | grim -g - - | wl-copy && wl-paste > $(xdg-user-dir PICTURES)/Screenshots/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+bindsym $mod+Shift+p exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy 
+bindsym $mod+Ctrl+Shift+s exec sh -c 'wayfreeze & PID=$!; sleep 0.1; FILE="$(xdg-user-dir PICTURES)/Screenshots/$(date +%Y-%m-%d-%H%M%S_grim.png)"; grim -g "$(slurp)" "$FILE"; wl-copy < "$FILE"; kill $PID'
+bindsym $mod+Shift+s exec sh -c 'wayfreeze & PID=$!; sleep 0.1; grim -g "$(slurp)" - | wl-copy; kill $PID'
 bindsym $mod+e exec thunar
 
 # Kill focused window
@@ -117,6 +121,9 @@ floating_modifier $mod normal
 # Reload the configuration file
 bindsym $mod+Shift+c reload
 
+# Lock screen
+bindsym --locked $mod+Ctrl+l exec gtklock -d
+
 # Exit sway (logs you out of your Wayland session)
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 #
@@ -132,6 +139,9 @@ bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
+
+bindsym Mod1+Tab focus next
+bindsym Mod1+Shift+Tab focus prev
 
 # Move the focused window with the same, but add Shift
 bindsym $mod+Shift+$left move left
@@ -233,23 +243,42 @@ mode "resize" {
 # bindsym $mod+d mode "resize"
 default_border pixel 3
 
-client.focused          #d8dee9 #d8dee9 #2a2e38 #d8dee9   #d8dee9
-client.focused_inactive #ecbe6b #ecbe6b #2a2e38 #2a2e38   #2a2e38
-client.unfocused        #1e222a #1e222a #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+# colors (One Dark)
+set $bg #282C34
+set $fg #61AFEF
+set $ur #E06C75
+set $uf #5C6370
 
-client.background       #1d2021
+# app_id                 border -> bground -> text -> indicator -> child_border
+client.focused          $fg $fg $bg $fg $fg
+client.unfocused        $uf $bg $fg $uf $uf
+client.focused_inactive $uf $fg $bg $uf $uf
+client.urgent           $ur $ur $bg $ur $ur
 
 exec_always kanshi
-assign [app_id="firefox"] workspace number 3
-assign [app_id="app.zen_browser.zen"] workspace number 3
-assign [class="discord"] workspace number 4
-assign [app_id="GitHub Desktop"] workspace number 5
-# assign [class="Code"] workspace number 2
-assign [class="Spotify"] workspace number 5
+
+# Browsers
+assign [app_id="firefox"] workspace 3
+assign [app_id="app.zen_browser.zen"] workspace 3
+
+# Dev
+assign [app_id="code"] workspace 2
+assign [app_id="GitHub Desktop"] workspace 5
+assign [app_id="Postman"] workspace 5
+
+# Chat / Social
+assign [app_id="com.discordapp.Discord"] workspace 4
+assign [app_id="com.rtosta.zapzap"] workspace 4
 for_window [class="vesktop"] move container to workspace 4
+
+# Media / Games
+assign [class="Spotify"] workspace 5
 for_window [class="steam"] move container to workspace 5
+
+# Thunar
+for_window [app_id="thunar"] floating enable
+for_window [app_id="thunar"] move position center
+
 
 # Include configs from 3 locations:
 #  - /usr/share/sway/config.d
@@ -286,12 +315,26 @@ exec swayidle -w \
     resume 'swaymsg "output * dpms on"' \
     before-sleep 'gtklock -d'
 
+# layer_effects "waybar" {
+#     blur enable;
+#     blur_ignore_transparent enable;
+# }
+#
+# blur enable
+# blur_radius 5
+ # corner_radius 12
+
 exec /usr/libexec/xdg-desktop-portal
 exec /usr/libexec/polkit-mate-authentication-agent-1
 exec_always nm-applet --indicator
 
-gaps inner 8
+gaps inner 10 
 include /etc/sway/config.d/*
 
 exec "dbus-update-activation-environment --systemd --all "
 exec "dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP=sway "
+
+smart_gaps on
+smart_borders on
+
+seat seat0 xcursor_theme Bibata-Modern-Classic 24

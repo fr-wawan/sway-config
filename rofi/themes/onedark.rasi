@@ -1,0 +1,159 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Rofi — One Dark Theme
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+* {
+  /* One Dark Palette */
+  bg:           #282c34;
+  bg-alt:       #21252b;
+  bg-darker:    #1d2026;
+  border-col:   #3e4451;
+
+  fg:          white;
+  fg-dim:       #636d83;
+  fg-bright:    #dde1e8;
+
+  red:          #e06c75;
+  yellow:       #e5c07b;
+  cyan:         #56b6c2;
+  blue:         #61afef;
+
+  /* Transparent backgrounds — format: argb #AARRGGBB */
+  blue-dim:     #1a61afef;
+  red-dim:      #1ae06c75;
+  cyan-dim:     #1a56b6c2;
+
+  /* highlight property harus di-define di sini, tidak bisa inline @var */
+  hl-normal:    bold #61afef;
+
+  /* Defaults */
+  background-color: transparent;
+  text-color:       @fg;
+  font:             "JetBrainsMono Nerd Font 15";
+}
+
+/* ─── Window ──────────────────────────────────────────────────────────────── */
+window {
+  width:            480px;
+  background-color: @bg;
+  border:           1px;
+  border-color:     @border-col;
+  border-radius:    12px;
+  padding:          0px;
+}
+
+/* ─── Main Layout ─────────────────────────────────────────────────────────── */
+mainbox {
+  background-color: transparent;
+  children:         [ inputbar, listview ];
+  spacing:          0px;
+  padding:          0px;
+}
+
+/* ─── Input Bar ───────────────────────────────────────────────────────────── */
+inputbar {
+  background-color: @bg-alt;
+  border-radius:    12px 12px 0px 0px;
+  border:           0px 0px 1px 0px;
+  border-color:     @border-col;
+  padding:          10px 14px;
+  spacing:          8px;
+  children:         [ prompt, entry ];
+}
+
+prompt {
+  background-color: transparent;
+  text-color:       @blue;
+  font:             "JetBrainsMono Nerd Font Bold 12";
+}
+
+entry {
+  background-color:  transparent;
+  text-color:        @fg-bright;
+  placeholder:       "Search...";
+  placeholder-color: @fg-dim;
+  cursor:            text;
+}
+
+/* ─── List View ───────────────────────────────────────────────────────────── */
+listview {
+  background-color: transparent;
+  padding:          8px 6px;
+  spacing:          2px;
+  lines:            8;
+  columns:          1;
+  scrollbar:        false;
+  fixed-height:     false;
+}
+
+/* ─── Elements ────────────────────────────────────────────────────────────── */
+element {
+  background-color: transparent;
+  border-radius:    8px;
+  padding:          8px 12px;
+  spacing:          8px;
+  orientation:      horizontal;
+}
+
+element normal normal {
+  background-color: transparent;
+  text-color:       @fg;
+}
+
+element normal urgent {
+  background-color: transparent;
+  text-color:       @red;
+}
+
+element normal active {
+  background-color: transparent;
+  text-color:       @blue;
+}
+
+element selected normal {
+  background-color: @blue-dim;
+  text-color:       @fg-bright;
+  border:           0px 0px 0px 3px;
+  border-color:     @blue;
+  border-radius:    0px 8px 8px 0px;
+}
+
+element selected urgent {
+  background-color: @red-dim;
+  text-color:       @red;
+  border:           0px 0px 0px 3px;
+  border-color:     @red;
+  border-radius:    0px 8px 8px 0px;
+}
+
+element selected active {
+  background-color: @cyan-dim;
+  text-color:       @cyan;
+  border:           0px 0px 0px 3px;
+  border-color:     @cyan;
+  border-radius:    0px 8px 8px 0px;
+}
+
+element-icon {
+  size:           20px;
+  vertical-align: 0.5;
+}
+
+element-text {
+  background-color: transparent;
+  vertical-align:   0.5;
+  highlight:        @hl-normal;
+}
+
+/* ─── Message ─────────────────────────────────────────────────────────────── */
+message {
+  background-color: @bg-alt;
+  border:           1px 0px 0px 0px;
+  border-color:     @border-col;
+  padding:          8px 14px;
+}
+
+textbox {
+  background-color: transparent;
+  text-color:       @yellow;
+}

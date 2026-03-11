@@ -1,74 +1,257 @@
-* {
-    font-family: 'JetbrainsMono Nerd Font';
-    font-weight: 600;
-    font-size: 17px;
-}
+@define-color bg          #282c34;
+@define-color bg-alt      #21252b;
+@define-color bg-darker   #1d2026;
+@define-color surface     #2c313a;
+@define-color border      #3e4451;
+@define-color fg          #abb2bf;
+@define-color fg-dim      #636d83;
+@define-color red         #e06c75;
+@define-color orange      #d19a66;
+@define-color yellow      #e5c07b;
+@define-color green       #98c379;
+@define-color cyan        #56b6c2;
+@define-color blue        #61afef;
+@define-color purple      #c678dd;
+@define-color white       #dde1e8;
 
-.module {
-    min-height: 40px;
+* {
+  font-family: "JetBrainsMono Nerd Font", "Iosevka Nerd Font", monospace;
+  font-weight: Bold;
+  font-size: 18px;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
 }
 
 window#waybar {
-    background-color: #2e3440;
-    color: #ffffff;
-    transition-property: background-color;
-    transition-duration: .5s;
+  background: @bg;
+  color: @fg;
+  border-bottom: 1px solid @border;
 }
 
-button {
-    border: none;
-    border-radius: 0;
+/* Hapus border-radius dan background terpisah per group,
+   biar nyatu jadi satu bar penuh */
+.modules-left,
+.modules-center,
+.modules-right {
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  padding: 0 6px;
+}
+
+window#waybar > box {
+  background: transparent;
+}
+
+tooltip {
+  background: @bg-alt;
+  border: 1px solid @border;
+  border-radius: 8px;
+  color: @fg;
+}
+
+tooltip label {
+  color: @fg;
+  padding: 4px 8px;
+}
+
+#custom-launcher,
+#workspaces,
+#window,
+#clock,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#temperature,
+#battery,
+#tray,
+#custom-power {
+  padding: 0 10px;
+  color: @fg;
+}
+
+#custom-launcher {
+  color: @blue;
+  font-size: 18px;
+  padding: 0 14px;
+  /* tanpa border-radius karena sudah full bar */
+}
+
+#custom-launcher:hover {
+  color: @white;
+  background: @surface;
+}
+
+#workspaces {
+  padding: 0 4px;
 }
 
 #workspaces button {
-    padding: 0 10px;
-    color: #ffffff;
+  min-width: 28px;
+  padding: 4px 6px;
+  margin: 4px 2px;
+  color: @fg;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 18px;
 }
 
 #workspaces button:hover {
-    background: #434c5e;
+  color: @white;
+  background: rgba(62, 68, 81, 0.6);
+  box-shadow: none;
 }
 
 #workspaces button.focused {
-    background-color: #4c566a;
+  color: @bg;
+  background: @blue;
+  font-weight: bold;
+}
+
+#workspaces button.visible {
+  color: @blue;
+  background: rgba(97, 175, 239, 0.15);
 }
 
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+  color: @bg;
+  background: @red;
 }
 
-#mode {
-    background-color: #64727D;
-    box-shadow: inset 0 -3px #ffffff;
+#window {
+  color: @fg-dim;
+  font-size: 18px;
 }
 
-#clock,
-#battery,
-#cpu,
-#memory,
-#disk,
-#temperature,
-#backlight,
-#network,
-#pulseaudio,
-#wireplumber,
-#custom-media,
-#tray,
-#mode,
-#idle_inhibitor,
-#scratchpad,
-#power-profiles-daemon,
-#mpd {
-    padding: 0 10px;
-    color: #ffffff;
+#window.empty {
+  padding: 0;
 }
 
-#window,
-#workspaces {
-    margin: 0 4px;
+#clock {
+  color: @blue;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-#pulseaudio,#memory  {
-    color: #a3be8c;
+#clock:hover {
+  color: @cyan;
 }
 
+#pulseaudio {
+  color: @cyan;
+}
+
+#pulseaudio.muted {
+  color: @fg-dim;
+}
+
+#pulseaudio:hover {
+  color: @white;
+  background: @surface;
+}
+
+#network {
+  color: @green;
+}
+
+#network.disconnected {
+  color: @red;
+}
+
+#network:hover {
+  color: @white;
+  background: @surface;
+}
+
+#cpu {
+  color: @orange;
+}
+
+#cpu:hover {
+  color: @white;
+  background: @surface;
+}
+
+#memory {
+  color: @purple;
+}
+
+#memory:hover {
+  color: @white;
+  background: @surface;
+}
+
+#temperature {
+  color: @yellow;
+}
+
+#temperature.critical {
+  color: @red;
+  animation: blink 1s step-start infinite;
+}
+
+#battery {
+  color: @green;
+}
+
+#battery.charging {
+  color: @yellow;
+}
+
+#battery.warning:not(.charging) {
+  color: @orange;
+}
+
+#battery.critical:not(.charging) {
+  color: @red;
+  animation: blink 1s step-start infinite;
+}
+
+#tray {
+  padding: 0 8px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: @red;
+  border-radius: 4px;
+}
+
+#custom-power {
+  color: @fg-dim;
+  font-size: 18px;
+  padding: 0 14px;
+}
+
+#custom-power:hover {
+  color: @red;
+  background: @surface;
+}
+
+label.module-separator {
+  color: @border;
+  padding: 0 2px;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+#custom-notification {
+  color: @fg;
+  padding: 0 12px;
+  font-size: 18px;
+}
+
+#custom-notification:hover {
+  color: @blue;
+  background: @surface;
+}
