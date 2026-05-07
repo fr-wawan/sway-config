@@ -16,7 +16,7 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 # Recommends: foot
-set $term kitty
+set $term /home/exwadia/.local/kitty.app/bin/kitty 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -24,13 +24,13 @@ set $term kitty
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
 # TODO: add window with the next release of rofi-wayland
-set $menu rofi -show drun
+set $menu wofi --show drun
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg /home/exwadia/Pictures/wallpaper2.jpg fill
+output * bg /home/exwadia/Pictures/wallpaper.jpg fill
 #output * bg $(find ~/Pictures/wallpapers -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.bmp' -o -iname '*.webp' \) | shuf -n 1) fill
 #
 # Example configuration:
@@ -279,6 +279,9 @@ for_window [class="steam"] move container to workspace 5
 for_window [app_id="thunar"] floating enable
 for_window [app_id="thunar"] move position center
 
+# Disable swayidle on fullscreen
+for_window [class="^.*"] inhibit_idle fullscreen
+for_window [app_id="^.*"] inhibit_idle fullscreen
 
 # Include configs from 3 locations:
 #  - /usr/share/sway/config.d
@@ -310,9 +313,10 @@ bar {
 
 
 exec swayidle -w \
-    timeout 600 'gtklock -d' \
-    timeout 1200 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"' \
+    timeout 300  'gtklock -d' \
+    timeout 600  'swaymsg "output * dpms off"' \
+    resume       'swaymsg "output * dpms on"' \
+    timeout 900  'systemctl suspend-then-hibernate' \
     before-sleep 'gtklock -d'
 
 # layer_effects "waybar" {
@@ -328,7 +332,7 @@ exec /usr/libexec/xdg-desktop-portal
 exec /usr/libexec/polkit-mate-authentication-agent-1
 exec_always nm-applet --indicator
 
-gaps inner 10 
+#gaps inner 10 
 include /etc/sway/config.d/*
 
 exec "dbus-update-activation-environment --systemd --all "
