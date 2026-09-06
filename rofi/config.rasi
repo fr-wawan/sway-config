@@ -1,8 +1,3 @@
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   Rofi — config.rasi  (drun only)
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 configuration {
   modes:               "drun";
   show-icons:          true;
@@ -16,6 +11,9 @@ configuration {
   me-select-entry:     "";
   me-accept-entry:     "MousePrimary";
   terminal:            "alacritty";
+  levenshtein-sort: false;
+  sort: true;
+  sorting-method: "normal";
 }
 
 

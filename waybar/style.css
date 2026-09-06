@@ -15,7 +15,7 @@
 @define-color white       #dde1e8;
 
 * {
-  font-family: "JetBrainsMono Nerd Font", "Iosevka Nerd Font", monospace;
+  font-family: "JetbrainsMono Nerd Font", monospace;
   font-weight: Bold;
   font-size: 18px;
   border: none;
@@ -31,8 +31,6 @@ window#waybar {
   border-bottom: 1px solid @border;
 }
 
-/* Hapus border-radius dan background terpisah per group,
-   biar nyatu jadi satu bar penuh */
 .modules-left,
 .modules-center,
 .modules-right {
@@ -78,7 +76,6 @@ tooltip label {
   color: @blue;
   font-size: 18px;
   padding: 0 14px;
-  /* tanpa border-radius karena sudah full bar */
 }
 
 #custom-launcher:hover {
@@ -139,6 +136,7 @@ tooltip label {
 
 #clock:hover {
   color: @cyan;
+  background: @surface;
 }
 
 #pulseaudio {

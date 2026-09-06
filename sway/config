@@ -16,7 +16,7 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 # Recommends: foot
-set $term /home/exwadia/.local/kitty.app/bin/kitty 
+set $term kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -24,14 +24,15 @@ set $term /home/exwadia/.local/kitty.app/bin/kitty
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
 # TODO: add window with the next release of rofi-wayland
-set $menu wofi --show drun
+set $menu rofi -show drun
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg /home/exwadia/Pictures/wallpaper.jpg fill
-#output * bg $(find ~/Pictures/wallpapers -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.bmp' -o -iname '*.webp' \) | shuf -n 1) fill
+#output * bg /home/exwadia/Pictures/nordic-wallpapers/wallpapers/ign_unsplash15.png fill
+output * bg /home/exwadia/Pictures/Wallpapers/wallpaper.png fill
+#output * bg $(find ~/Pictures/nordic-wallpapers -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.bmp' -o -iname '*.webp' \) | shuf -n 1) fill
 #
 # Example configuration:
 #
@@ -266,10 +267,16 @@ assign [app_id="code"] workspace 2
 assign [app_id="GitHub Desktop"] workspace 5
 assign [app_id="Postman"] workspace 5
 
+# Waybar calendar popup
+for_window [app_id="waybar-calendar"] floating enable, resize set width 1080 height 720, move position center
+
 # Chat / Social
 assign [app_id="com.discordapp.Discord"] workspace 4
+assign [app_id="com.slack.Slack"] workspace 2
 assign [app_id="com.rtosta.zapzap"] workspace 4
+assign [app_id="vesktop"] workspace 4
 for_window [class="vesktop"] move container to workspace 4
+for_window [class="cider"] move container to workspace 6
 
 # Media / Games
 assign [class="Spotify"] workspace 5
@@ -311,12 +318,14 @@ bar {
     mode invisible
 }
 
+#workspace 4 output eDP-1
+
 
 exec swayidle -w \
-    timeout 300  'gtklock -d' \
-    timeout 600  'swaymsg "output * dpms off"' \
+    timeout 900  'gtklock -d' \
+    timeout 1200 'swaymsg "output * dpms off"' \
     resume       'swaymsg "output * dpms on"' \
-    timeout 900  'systemctl suspend-then-hibernate' \
+    timeout 1800 'systemctl suspend-then-hibernate' \
     before-sleep 'gtklock -d'
 
 # layer_effects "waybar" {
@@ -330,15 +339,17 @@ exec swayidle -w \
 
 exec /usr/libexec/xdg-desktop-portal
 exec /usr/libexec/polkit-mate-authentication-agent-1
+exec --no-startup-id easyeffects --gapplication-service
 exec_always nm-applet --indicator
+ exec flatpak run --command=easyeffects com.github.wwmm.easyeffects --gapplication-service
 
-#gaps inner 10 
+gaps inner 12 
 include /etc/sway/config.d/*
 
 exec "dbus-update-activation-environment --systemd --all "
 exec "dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP=sway "
 
-smart_gaps on
-smart_borders on
+#smart_gaps on
+#smart_borders on
 
 seat seat0 xcursor_theme Bibata-Modern-Classic 24

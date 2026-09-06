@@ -1,9 +1,4 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   Rofi — One Dark Theme
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 * {
-  /* One Dark Palette */
   bg:           #282c34;
   bg-alt:       #21252b;
   bg-darker:    #1d2026;
@@ -18,21 +13,17 @@
   cyan:         #56b6c2;
   blue:         #61afef;
 
-  /* Transparent backgrounds — format: argb #AARRGGBB */
   blue-dim:     #1a61afef;
   red-dim:      #1ae06c75;
   cyan-dim:     #1a56b6c2;
 
-  /* highlight property harus di-define di sini, tidak bisa inline @var */
   hl-normal:    bold #61afef;
 
-  /* Defaults */
   background-color: transparent;
   text-color:       @fg;
   font:             "JetBrainsMono Nerd Font 15";
 }
 
-/* ─── Window ──────────────────────────────────────────────────────────────── */
 window {
   width:            480px;
   background-color: @bg;
@@ -42,7 +33,6 @@ window {
   padding:          0px;
 }
 
-/* ─── Main Layout ─────────────────────────────────────────────────────────── */
 mainbox {
   background-color: transparent;
   children:         [ inputbar, listview ];
@@ -50,7 +40,6 @@ mainbox {
   padding:          0px;
 }
 
-/* ─── Input Bar ───────────────────────────────────────────────────────────── */
 inputbar {
   background-color: @bg-alt;
   border-radius:    12px 12px 0px 0px;
@@ -75,7 +64,6 @@ entry {
   cursor:            text;
 }
 
-/* ─── List View ───────────────────────────────────────────────────────────── */
 listview {
   background-color: transparent;
   padding:          8px 6px;
@@ -86,7 +74,6 @@ listview {
   fixed-height:     false;
 }
 
-/* ─── Elements ────────────────────────────────────────────────────────────── */
 element {
   background-color: transparent;
   border-radius:    8px;
@@ -145,7 +132,6 @@ element-text {
   highlight:        @hl-normal;
 }
 
-/* ─── Message ─────────────────────────────────────────────────────────────── */
 message {
   background-color: @bg-alt;
   border:           1px 0px 0px 0px;

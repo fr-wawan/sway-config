@@ -1,0 +1,76 @@
+#:schema https://yazi-rs.github.io/schemas/theme.json
+
+[mgr]
+cwd = { fg = "#61afef", bold = true }
+find_keyword = { fg = "#e5c07b", bold = true, underline = true }
+find_position = { fg = "#c678dd", bold = true }
+symlink_target = { fg = "#636d83", italic = true }
+marker_copied = { fg = "#98c379", bg = "#98c379" }
+marker_cut = { fg = "#e06c75", bg = "#e06c75" }
+marker_marked = { fg = "#56b6c2", bg = "#56b6c2" }
+marker_selected = { fg = "#e5c07b", bg = "#e5c07b" }
+border_symbol = "│"
+border_style = { fg = "#3e4451" }
+
+[indicator]
+parent = { fg = "#636d83" }
+current = { fg = "#21252b", bg = "#61afef", bold = true }
+preview = { fg = "#98c379", underline = false }
+padding = { open = "▐", close = "▌" }
+
+[tabs]
+active = { fg = "#21252b", bg = "#61afef", bold = true }
+inactive = { fg = "#636d83", bg = "#282c34" }
+sep_inner = { open = "", close = "" }
+sep_outer = { open = "", close = "" }
+
+[mode]
+normal_main = { fg = "#21252b", bg = "#61afef", bold = true }
+normal_alt = { fg = "#61afef", bg = "#282c34" }
+select_main = { fg = "#21252b", bg = "#c678dd", bold = true }
+select_alt = { fg = "#c678dd", bg = "#282c34" }
+unset_main = { fg = "#21252b", bg = "#e06c75", bold = true }
+unset_alt = { fg = "#e06c75", bg = "#282c34" }
+
+[status]
+overall = { bg = "#21252b" }
+sep_left = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+perm_type = { fg = "#61afef" }
+perm_read = { fg = "#e5c07b" }
+perm_write = { fg = "#e06c75" }
+perm_exec = { fg = "#98c379" }
+perm_sep = { fg = "#4b5263" }
+
+[input]
+border = { fg = "#61afef" }
+title = { fg = "#abb2bf" }
+value = { fg = "#abb2bf" }
+selected = { bg = "#3e4451" }
+
+[cmp]
+border = { fg = "#3e4451" }
+active = { fg = "#21252b", bg = "#98c379", bold = true }
+inactive = { fg = "#636d83" }
+
+[tasks]
+border = { fg = "#3e4451" }
+title = { fg = "#61afef", bold = true }
+hovered = { fg = "#21252b", bg = "#61afef", bold = true }
+
+[help]
+border = { fg = "#3e4451" }
+chord = { fg = "#61afef" }
+action = { fg = "#abb2bf" }
+hovered = { fg = "#21252b", bg = "#61afef", bold = true }
+
+[filetype]
+rules = [
+  { mime = "image/*", fg = "#e5c07b" },
+  { mime = "{audio,video}/*", fg = "#c678dd" },
+  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,archive}", fg = "#e06c75" },
+  { mime = "application/{pdf,doc,rtf}", fg = "#56b6c2" },
+  { url = "*", is = "orphan", fg = "#e06c75" },
+  { url = "*", is = "exec", fg = "#98c379" },
+  { url = "*/", fg = "#61afef" },
+]
